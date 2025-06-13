@@ -1,2 +1,4 @@
 # study-tools
-I've designed a bunch of analogue tools that have supported me in the past and digitised them for you. hope you can benefit from them too!
+I'm a big fan of decision trees and have made several of them over the course of my life to simplify decision making
+I learned how to digitise them so you cna benefit from them too
+hope it helps!
