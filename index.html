@@ -68,7 +68,6 @@
   </div>
 
   <script>
-    // Decision tree data structure
     const tree = {
       question: "Are you tired?",
       yes: {
@@ -108,23 +107,28 @@
 
     function updateUI() {
       if (currentNode.result) {
-        // Show final decision
         questionEl.textContent = currentNode.result;
         yesBtn.style.display = 'none';
         noBtn.style.display = 'none';
         restartBtn.style.display = 'inline-block';
       } else {
-        // Show next question
         questionEl.textContent = currentNode.question;
         yesBtn.style.display = 'inline-block';
         noBtn.style.display = 'inline-block';
         restartBtn.style.display = 'none';
+
+        if (currentNode.question === "Are you actually tired or just feeling lazy?") {
+          yesBtn.textContent = "I'm actually tired";
+          noBtn.textContent = "I'm feeling lazy";
+        } else {
+          yesBtn.textContent = "Yes";
+          noBtn.textContent = "No";
+        }
       }
     }
 
     function answer(choice) {
       if (!currentNode[choice]) {
-        // Defensive: in case data missing
         questionEl.textContent = "Hmm, something went wrong. Try restarting.";
         yesBtn.style.display = 'none';
         noBtn.style.display = 'none';
@@ -142,7 +146,6 @@
       updateUI();
     });
 
-    // Initialize the first question
     updateUI();
   </script>
 </body>
