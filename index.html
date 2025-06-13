@@ -72,13 +72,13 @@
     const tree = {
       question: "Are you tired?",
       yes: {
-        question: "Be honest. Are you actually tired or just feeling lazy?",
-        tired: {
+        question: "Are you actually tired or just feeling lazy?",
+        yes: {
           question: "Do you have an important deadline or test soon?",
           yes: { result: "Study a little bit, but take breaks and rest too!" },
           no: { result: "Rest now and plan to study later." }
         },
-        lazy: {
+        no: {
           question: "Are you just procrastinating?",
           yes: { result: "Push yourself — even 10 minutes of study helps!" },
           no: { result: "Maybe take a short break, then start studying." }
@@ -119,6 +119,15 @@
         yesBtn.style.display = 'inline-block';
         noBtn.style.display = 'inline-block';
         restartBtn.style.display = 'none';
+
+        // Custom button text for the specific question
+        if (currentNode.question === "Are you actually tired or just feeling lazy?") {
+          yesBtn.textContent = "I'm actually tired";
+          noBtn.textContent = "I'm feeling lazy";
+        } else {
+          yesBtn.textContent = "Yes";
+          noBtn.textContent = "No";
+        }
       }
     }
 
