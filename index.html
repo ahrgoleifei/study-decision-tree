@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Should You Study?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    #container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      max-width: 500px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    #question {
+      font-size: 1.4em;
+      margin-bottom: 40px;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 15px 35px;
+      font-size: 1em;
+      margin: 0 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      min-width: 110px;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    #restart {
+      margin-top: 30px;
+      display: none;
+      background: #28a745;
+    }
+    #restart:hover {
+      background: #19692c;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="question">Loading...</div>
+    <div id="buttons">
+      <button class="btn" id="yesBtn">Yes</button>
+      <button class="btn" id="noBtn">No</button>
+    </div>
+    <button class="btn" id="restart">Start Over</button>
+  </div>
+
+  <script>
+    // Decision tree data structure
+    const tree = {
+      question: "Are you tired?",
+      yes: {
+        question: "Are you actually tired or just feeling lazy?",
+        yes: {
+          question: "Do you have an important deadline or test soon?",
+          yes: { result: "Study a little bit, but take breaks and rest too!" },
+          no: { result: "Rest now and plan to study later." }
+        },
+        no: {
+          question: "Are you just procrastinating?",
+          yes: { result: "Push yourself — even 10 minutes of study helps!" },
+          no: { result: "Maybe take a short break, then start studying." }
+        }
+      },
+      no: {
+        question: "Do you understand the material?",
+        yes: {
+          question: "Is your next test soon or important?",
+          yes: { result: "Do a focused revision now!" },
+          no: { result: "You’re good to relax today." }
+        },
+        no: {
+          question: "Are you avoiding studying because it feels too hard?",
+          yes: { result: "Break it down — start with small parts to make it easier!" },
+          no: { result: "Time to buckle down and study." }
+        }
+      }
+    };
+
+    let currentNode = tree;
+
+    const questionEl = document.getElementById('question');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const restartBtn = document.getElementById('restart');
+
+    function updateUI() {
+      if (currentNode.result) {
+        // Show final decision
+        questionEl.textContent = currentNode.result;
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+        restartBtn.style.display = 'inline-block';
+      } else {
+        // Show next question
+        questionEl.textContent = currentNode.question;
+        yesBtn.style.display = 'inline-block';
+        noBtn.style.display = 'inline-block';
+        restartBtn.style.display = 'none';
+      }
+    }
+
+    function answer(choice) {
+      if (!currentNode[choice]) {
+        // Defensive: in case data missing
+        questionEl.textContent = "Hmm, something went wrong. Try restarting.";
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+        restartBtn.style.display = 'inline-block';
+        return;
+      }
+      currentNode = currentNode[choice];
+      updateUI();
+    }
+
+    yesBtn.addEventListener('click', () => answer('yes'));
+    noBtn.addEventListener('click', () => answer('no'));
+    restartBtn.addEventListener('click', () => {
+      currentNode = tree;
+      updateUI();
+    });
+
+    // Initialize the first question
+    updateUI();
+  </script>
+</body>
+</html>
