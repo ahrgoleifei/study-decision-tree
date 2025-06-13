@@ -72,13 +72,13 @@
     const tree = {
       question: "Are you tired?",
       yes: {
-        question: "Are you actually tired or just feeling lazy?",
-        yes: {
+        question: "Be honest. Are you actually tired or just feeling lazy?",
+        tired: {
           question: "Do you have an important deadline or test soon?",
           yes: { result: "Study a little bit, but take breaks and rest too!" },
           no: { result: "Rest now and plan to study later." }
         },
-        no: {
+        lazy: {
           question: "Are you just procrastinating?",
           yes: { result: "Push yourself — even 10 minutes of study helps!" },
           no: { result: "Maybe take a short break, then start studying." }
